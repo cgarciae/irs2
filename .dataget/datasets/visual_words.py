@@ -49,9 +49,11 @@ class VisualWords(ImageDataSet):
 
         i = -1
         n_classes = len(os.listdir(data_path))
+        categories = {}
         for n_class, folder in enumerate(os.listdir(data_path)):
 
             folder_path = os.path.join(data_path, folder)
+            categories[n_class] = folder
 
             for img in os.listdir(folder_path):
                 img_path = os.path.join(folder_path, img)
@@ -66,12 +68,9 @@ class VisualWords(ImageDataSet):
 
                 img_dest_path = os.path.join(set_folder_path, img)
 
-                #print("SOURCE", img_path)
-                #print("DEST", img_dest_path)
-
-
                 shutil.copyfile(img_path, img_dest_path)
 
 
                 i = i % 10
         #shutil.rmtree(data_path)
+        print(categories)
