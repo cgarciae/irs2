@@ -55,7 +55,7 @@ def get_keras_objects():
 def get_templates(n_classes, seed = 64):
 
 	sess, graph, image, embedding = get_keras_objects()
-	
+
 	inputs_t = GeneralSupervisedInputs(
 		name = "inputs",
 		sess = sess,

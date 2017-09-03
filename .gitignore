@@ -1,4 +1,5 @@
 data/
+.dataget/data
 logs/
 
 # Byte-compiled / optimized / DLL files
