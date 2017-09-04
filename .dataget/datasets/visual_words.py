@@ -45,7 +45,9 @@ class VisualWords(ImageDataSet):
 
 
     def _extract(self, train_size = 0.8, **kwargs):
-        data_path = os.path.join(self.path, "collected-data")
+        from PIL import Image
+
+        data_path = os.path.join(self.path, "..", "..", "..", "collected-data")
 
         i = -1
         n_classes = len(os.listdir(data_path))
@@ -58,6 +60,14 @@ class VisualWords(ImageDataSet):
             for img in os.listdir(folder_path):
                 img_path = os.path.join(folder_path, img)
                 i += 1
+
+                if not img_path.endswith(self.raw_extension):
+                    with Image.open(img_path) as im:
+                        os.remove(img_path)
+                        parts = img_path.split(".")
+                        parts[-1] = self.raw_extension
+                        img_path = ".".join(parts)
+                        im.save(img_path)
 
                 set_dir = "training-set" if i < int(train_size*10) else "test-set"
 

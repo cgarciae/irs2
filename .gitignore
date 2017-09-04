@@ -1,6 +1,8 @@
 data/
 .dataget/data
 logs/
+collected-data/
+models/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
