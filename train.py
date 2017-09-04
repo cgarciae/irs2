@@ -31,12 +31,19 @@ def main(device, epochs, batch_size, loss, restore):
         "visual-words"
     ).get(process=False)
 
+    df = dataset.training_set.dataframe()
+    dataset.training_set._dataframe = df[ df["image"].apply(lambda a: a.shape) == (299, 299, 3)]
+
     # utils.process_steering(dataset.training_set, params.alpha, params.straight_tol, params.steering_filter)
     # print(dataset.training_set.pure_dataframe().columns)
 
     # obtener todas las imagenes (lento)
     def data_generator_fn():
-        return dataset.training_set.random_batch_arrays_generator(batch_size)
+        data_generator = dataset.training_set.random_batch_arrays_generator(batch_size)
+        data_generator = cz.map(Dict(image = P[0], labels = P[1], keras_training = False), data_generator)
+        # data_generator = cz.map(utils.get_processed_image, data_generator)
+
+        return data_generator
 
     graph = tf.Graph()
     sess = tf.Session(graph=graph)
