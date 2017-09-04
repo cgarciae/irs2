@@ -4,14 +4,12 @@ from dataget import data # <== dataget
 import tensorflow as tf
 import cytoolz as cz
 from phi.api import *
-from model import get_model_t, get_inputs_t
+from model import get_templates
 import numpy as np
 import random
-from name import network_name, model_path
 from tfinterface.supervised import GeneralSupervisedInputs
 import click
 import utils
-from parameters import Parameters
 
 
 
@@ -22,7 +20,6 @@ from parameters import Parameters
 @click.option('--loss', default = "mse", help='mse or huber')
 @click.option('--restore', is_flag = True, help='restore')
 def main(device, epochs, batch_size, loss, restore):
-    params = Parameters()
 
     # seed: resultados repetibles
     seed = 32
@@ -31,11 +28,7 @@ def main(device, epochs, batch_size, loss, restore):
 
     # dataget
     dataset = data(
-        "udacity-selfdriving-simulator",
-        camera_steering_correction = params.camera_steering_correction,
-        angle_bins = params.nbins,
-        angle_straight_tol = params.straight_tol,
-        normal_angle_tol = params.normal_angle_tol,
+        "visual-words"
     ).get(process=False)
 
     # utils.process_steering(dataset.training_set, params.alpha, params.straight_tol, params.steering_filter)
@@ -43,24 +36,19 @@ def main(device, epochs, batch_size, loss, restore):
 
     # obtener todas las imagenes (lento)
     def data_generator_fn():
-        data_generator = dataset.training_set.random_batch_arrays_generator(batch_size, uniform = True, extra_features=["angle_class"])
-        return utils.process_generator(data_generator, keys = ["image", "angle_class", "steering"])
+        return dataset.training_set.random_batch_arrays_generator(batch_size)
 
     graph = tf.Graph()
     sess = tf.Session(graph=graph)
 
     # inputs
-    inputs = get_inputs_t(sess, graph)
-
-
-    # create model template
-    template = get_model_t(sess, graph, seed)
+    input_t, model_t = get_templates(dataset.n_classes, seed = seed)
 
     # model
 
     with tf.device(device):
-        inputs = inputs()
-        model = template(inputs)
+        inputs = input_t()
+        model = model_t(inputs)
 
     # initialize variables
     print("Initializing Model: restore = {}".format(restore))

@@ -18,10 +18,13 @@ class Model(GeneralSupervisedModel):
 
 	def get_predictions(self, inputs):
 
-		self.one_hot_labels = tf.one_hot(inputs.labels, self._n_classes)
+		print(inputs.embedding)
 
-		self.logits = tf.layers.dense(self._n_classes)
-		self.prediction = tf.nn.softmax(self.logits)
+
+		net = self.one_hot_labels = tf.one_hot(inputs.labels, self._n_classes); print(net)
+
+		net = self.logits = tf.layers.dense(inputs.embedding, self._n_classes); print(net)
+		net = self.prediction = tf.nn.softmax(self.logits); print(net)
 
 		return dict(
 			embedding = inputs.embedding,
@@ -48,6 +51,8 @@ def get_keras_objects():
 
 	image = graph.get_tensor_by_name("input_1:0")
 	embedding = graph.get_tensor_by_name("flatten_1/Reshape:0")
+
+	tf.summary.FileWriter(logdir = "logs", graph = graph).flush()
 
 	return sess, graph, image, embedding
 
