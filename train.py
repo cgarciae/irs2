@@ -12,7 +12,6 @@ import click
 import utils
 
 
-
 @click.command()
 @click.option('--device', '-d', default="/gpu:0", help='Device, default = gpu:0')
 @click.option('--epochs', '-e', default=8000, help='Number of epochs, default = 4000')
