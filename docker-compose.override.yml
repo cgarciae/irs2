@@ -14,11 +14,10 @@ services:
       - ./flask:/flask
     user: root
     environment:
-      SPARK_CONF_DIR: /code/spark-conf
+      SPARK_CONF_DIR: /flask/spark-conf
       MASTER: spark://master:7077
       PYSPARK_DRIVER_PYTHON: ipython
       PYSPARK_DRIVER_PYTHON_OPTS: 'notebook --NotebookApp.token="abc123" --ip=0.0.0.0 --allow-root --no-browser --debug --NotebookApp.iopub_data_rate_limit=1.0e10'
-      PYTHONHASHSEED: 64
     expose:
       - 7001
       - 7002

@@ -58,7 +58,6 @@ services:
       MASTER: spark://master:7077
       SPARK_CONF_DIR: /conf
       SPARK_PUBLIC_DNS: localhost
-      PYTHONHASHSEED: 64
     ports:
       - 4040:4040
       - 6066:6066
@@ -94,7 +93,6 @@ services:
       SPARK_WORKER_PORT: 8881
       SPARK_WORKER_WEBUI_PORT: 8081
       SPARK_PUBLIC_DNS: localhost
-      PYTHONHASHSEED: 64
     ports:
       - 8081
     expose:
