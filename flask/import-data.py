@@ -1,102 +1,68 @@
+import sys
+sys.path.append("./flask")
+
 import pandas as pd
 from pymongo import MongoClient
 from datetime import datetime
 import click
 from odo import odo
+from PIL import Image
+import numpy as np
+from model import get_keras_objects
+
+
+size = 299
+folder = "data/images2440"
+n_clusters = "15"
 
 @click.command()
-@click.option('--dataset', '-d', default = "ml-100k", help='Number of greetings.')
-def main(dataset):
+@click.option('--size', '-s', default = "299")
+@click.option('--folder', '-f', default = "/data/images2440")
+@click.option('--n-clusters', '-c', default = "15")
+def main(size, folder, n_clusters):
+    size = int(size)
+    n_clusters = int(n_clusters)
 
-    dataset_path = "/data/{}".format(dataset)
+    # embeddings
+    sess, graph, image, embedding, keras_training = get_keras_objects()
 
-    print("Importing {}".format(dataset_path))
+    features_test = []
+    path_images = []
 
-    print("Reading Data")
-    if dataset == "ml-100k":
-        #raings
-        ratings = pd.read_csv(
-            dataset_path + "/u.data",
-            sep = '\t',
-            names = ['user_id', 'movie_id', 'rating', 'unix_timestamp'],
-            encoding = 'latin-1'
-        )
-        ratings
-        #Reading movies file:
-        movies = pd.read_csv(
-            dataset_path + "/u.item",
-            sep = '|',
-            names = ['_id', 'title' ,'release date','video release date', 'IMDb URL', 'unknown', 'Action', 'Adventure', 'Animation', 'Children\'s', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Fantasy', 'Film-Noir', 'Horror', 'Musical', 'Mystery', 'Romance', 'Sci-Fi', 'Thriller', 'War', 'Western'],
-            encoding='latin-1'
-        )
-        movies
-        #Reading users file:
-        users = pd.read_csv(
-            dataset_path + "/u.user",
-            sep = '|',
-            names = ['_id', 'age', 'sex', 'occupation', 'zip_code'],
-            encoding ='latin-1'
-        )
+    for name in os.listdir(folder):
+        path = os.path.join(folder,name)
+        im = Image.open(path)
+        if (im.mode == "RGB"):
+            if ( im.size[0] != size or im.size[1] != size): #reshape it
+                im = im.resize((size, size,), Image.ANTIALIAS)
+            features_test.append(np.array(im))
+            path_images.append(path)
 
-    elif dataset == "ml-1m":
-        #raings
-        ratings = pd.read_csv(
-            dataset_path + "/ratings.dat",
-            sep = '::',
-            names = ['user_id', 'movie_id', 'rating', 'unix_timestamp'],
-            encoding = 'latin-1'
-        )
-        ratings
-        #Reading movies file:
-        movies = pd.read_csv(
-            dataset_path + "/movies.dat",
-            sep = '::',
-            names = ['_id', 'title', 'genres'],
-            encoding='latin-1'
-        )
+    features_test =  np.stack(features_test)
+    print("Images shape: {}".format(features_test.shape))
 
-        #Reading users file:
-        users = pd.read_csv(
-            dataset_path + "/users.dat",
-            sep = '::',
-            names = ['_id', 'age', 'sex', 'occupation', 'zip_code'],
-            encoding ='latin-1'
-        )
+    embeddings = []
+    for img in features_test:
+        pred = sess.run(embedding,{image: [img], keras_training:False })
+        embeddings.append(np.squeeze(pred))
 
-    elif dataset == "ml-20m" or dataset == "ml-latest-small" or dataset == "ml-latest":
-        #raings
-        ratings = odo(dataset_path + "/ratings.csv", pd.DataFrame)
-        ratings.columns = ['user_id', 'movie_id', 'rating', 'unix_timestamp']
-
-        #Reading movies file:
-        movies = odo(dataset_path + "/movies.csv", pd.DataFrame)
-        movies.columns = ['_id', 'title', 'genres']
-
-        users = ratings.groupby("user_id", as_index=False).count()[["user_id"]].rename(columns={"user_id" : "_id"})
-
-    else:
-        print("Invalid dataset {}".format(dataset))
-        return
+    embeddings =  np.stack(embeddings)
+    print("Embeddings shape: {}".format(embeddings.shape))
 
 
-    print("Connecting to MongoDB")
-    # create mongo db
-    client = MongoClient("mongo")
-    db = client.recsys
+    tsne = TSNE(n_components=3, perplexity=15.0, early_exaggeration=12.0, learning_rate=200.0, n_iter=2000)
+    tsne_embeddings = tsne.fit_transform(embeddings)
+    tsne_embeddings.shape
 
-    print("Dropping collections")
-    # clean collections
-    db.users.drop()
-    db.movies.drop()
-    db.ratings.drop()
-
-    print("Inserting data")
-    odo(users, db.users)
-    odo(ratings, db.ratings)
-    odo(movies, db.movies)
+    print("Tsne Embeddings shape: {}".format(tsne_embeddings.shape))
 
 
-    print("Users: {}, Movies: {}, Ratings: {}".format(db.users.count(), db.movies.count(), db.ratings.count()))
+    n_clusters = 15
+    kmeans = KMeans(n_clusters = n_clusters, random_state=0)
+    clusters = kmeans.fit_predict(predictions_reduced)
+
+    print("Clusters shape: {}".format(clusters.shape))
+
 
 
 
