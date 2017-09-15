@@ -1,0 +1,33 @@
+version: '2.2'
+
+services:
+  jupyter:
+    build: ./flask
+    working_dir: /code
+    ports:
+      - 9999:8888
+    volumes:
+      - ./jupyter:/code
+      - ./model_data:/model_data
+      - ./models:/models
+      - ./data:/data
+      - ./flask:/flask
+    user: root
+    environment:
+      SPARK_CONF_DIR: /flask/spark-conf
+      MASTER: spark://master:7077
+      PYSPARK_DRIVER_PYTHON: ipython
+      PYSPARK_DRIVER_PYTHON_OPTS: 'notebook --NotebookApp.token="abc123" --ip=0.0.0.0 --allow-root --no-browser --debug --NotebookApp.iopub_data_rate_limit=1.0e10'
+    expose:
+      - 7001
+      - 7002
+      - 7003
+      - 7004
+      - 7005
+      - 7006
+      - 7077
+      - 6066
+    command: /usr/local/spark/bin/pyspark
+    scale: 0
+    depends_on:
+      - master

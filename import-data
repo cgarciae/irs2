@@ -1,0 +1,5 @@
+#! /bin/bash
+
+# docker-compose up -d mongo mongo-express
+# docker-compose run --rm flask python import-data.py $@
+python flask/import-data.py $@
