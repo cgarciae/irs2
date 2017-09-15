@@ -11,10 +11,8 @@ ENV APACHE_SPARK_VERSION 2.1.1
 ENV HADOOP_VERSION 2.7
 
 # Temporarily add jessie backports to get openjdk 8, but then remove that source
-RUN echo 'deb http://cdn-fastly.deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list && \
-    apt-get -y update && \
-    apt-get install --no-install-recommends -t jessie-backports -y openjdk-8-jre-headless ca-certificates-java && \
-    rm /etc/apt/sources.list.d/jessie-backports.list && \
+RUN apt-get -y update && \
+    apt-get install --no-install-recommends -y openjdk-8-jre-headless ca-certificates-java && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 RUN cd /tmp && \

@@ -8,6 +8,7 @@ import click
 from odo import odo
 from PIL import Image
 import numpy as np
+import os
 from model import get_keras_objects
 from sklearn.manifold import TSNE
 from sklearn.cluster import KMeans
@@ -78,7 +79,7 @@ def main(size, folder, n_clusters):
 
     print("Connecting to MongoDB")
     # create mongo db
-    client = MongoClient("localhost")
+    client = MongoClient("mongo")
     db = client.brandon
 
     db.images.drop()
