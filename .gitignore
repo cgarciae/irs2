@@ -4,6 +4,7 @@ data/
 logs/
 collected-data/
 models/
+rails/tmp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
