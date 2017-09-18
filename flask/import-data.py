@@ -82,7 +82,7 @@ def main(size, folder, n_clusters, host):
     client = MongoClient(host)
     db = client.brandon
 
-    db.images.drop()|
+    db.images.drop()
 
     print("Inserting data")
     odo(df, db.images)
