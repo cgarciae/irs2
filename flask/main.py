@@ -95,7 +95,7 @@ def get_similar(id):
         .toDF()
         .where(F.col("distance") <= radius )
         .orderBy("distance", ascending = True)
-        .withColumn("similarity", (1.0 - (F.col("distance") / intial_radius)) * 100.0 )
+        .withColumn("similarity", (F.lit(1.0) - (F.col("distance") / F.lit(intial_radius))) * F.lit(100.0) )
         .collect()
     )
     selected_images = selected_images[1:]
