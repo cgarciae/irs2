@@ -71,7 +71,7 @@ def random_samples():
         F.collect_list("filename").alias("filename_list"),
         F.collect_list("tsne_embeddings").alias("tsne_embeddings_list"),
         F.collect_list("_id").alias("id_list")
-    ).drop("").collect()
+    ).collect()
 
     randoms = list(map(get_random, randoms))
 
