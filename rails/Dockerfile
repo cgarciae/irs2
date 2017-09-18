@@ -1,25 +1,9 @@
-#                            :2.2.0
-FROM cgarciae/pyspark-notebook:2.1.1
-
-RUN pip install pymongo
-RUN pip install flask
-RUN pip install Flask-PyMongo
-RUN pip install click
-RUN pip install odo
-RUN pip install tabulate
-RUN pip install tensorflow
-RUN pip install h5py
-RUN pip install pillow
-RUN pip install keras
-RUN pip install tensorflow
-RUN pip install plotly
-RUN pip install cytoolz
-
-RUN echo 1
-RUN pip install git+https://github.com/cgarciae/tfinterface.git@develop
-
+FROM ruby:2.3
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 WORKDIR /code
+COPY ./brandon_logan_frontend/Gemfile* ./
+RUN bundle install
+COPY ./brandon_logan_frontend .
 
-ENTRYPOINT []
-
-CMD python main.py
+EXPOSE 3000
+CMD ["rails", "server", "-d"]

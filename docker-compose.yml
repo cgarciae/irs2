@@ -17,6 +17,12 @@ services:
     depends_on:
       - mongo
 
+  rails:
+    build: ./rails
+    ports:
+      - 3000:3000
+    depends_on:
+      - flask
 
   flask:
     build: ./flask
