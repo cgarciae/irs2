@@ -1,55 +1,100 @@
 <div class="row">
-<div class="col s1"></div>
-<div class="col s1"></div>
-  <div class="col s3">
-    <div class="card">
-      <div class="card-image waves-effect waves-block waves-light">
-        <img class="activator" src="images/office.jpg">
-      </div>
-      <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-        <p><a href="#">This is a link</a></p>
-      </div>
-      <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+  <form class="col s12">
+
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <br><br>
+        <h1 class="header center red-text text-lighten-1">Brandon Search</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">Select a category that is related to your specific design requirement</h5>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col s3">
-    <div class="card">
-      <div class="card-image waves-effect waves-block waves-light">
-        <img class="activator" src="images/office.jpg">
-      </div>
-      <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-        <p><a href="#">This is a link</a></p>
-      </div>
-      <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+
+    <div class="container">
+      <div class="section">
+
+        <!--   Icon Section   -->
+        <div class="row">
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="material-icons"><%= image_tag('business_ads.png', height: 260) %></i>
+              </h2>
+              <span>
+                <input name="group1" type="radio" id="business_ads" />
+                <label for="business_ads">Business & Ads</label>
+              </span>
+            </div>
+          </div>
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="material-icons"><%= image_tag('logo_identity.png', height: 260) %></i>
+              </h2>
+              <span>
+                <input name="group1" type="radio" id="logo_identity" />
+                <label for="logo_identity">Logo & Identity</label>
+              </span>
+            </div>
+          </div>
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="material-icons"><%= image_tag('web_app.png', height: 260) %></i>
+              </h2>
+              <span>
+                <input name="group1" type="radio" id="web_app" />
+                <label for="web_app">Web & App Design</label>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
-  </div>
-  <div class="col s3">
-    <div class="card">
-      <div class="card-image waves-effect waves-block waves-light">
-        <img class="activator" src="images/office.jpg">
+
+    <div class="container">
+      <div class="section">
+
+        <!--   Icon Section   -->
+        <div class="row">
+          <div class="col s12 m2">
+          </div>
+
+          <div class="col s12 m8">
+            <label>Please select an Industry</label>
+            <select class="browser-default">
+              <option value="" disabled selected>Choose your industry</option>
+
+              <option value="Defense">Defense</option>
+              <option value="Education Services">Education Services</option>
+              <option value="Energy">Energy</option>
+              <option value="Environment and Food">Environment and Food</option>
+              <option value="Heritage">Heritage</option>
+              <option value="IT & Telecoms">IT & Telecoms</option>
+              <option value="Justice">Justice</option>
+              <option value="Media and entertainment">Media and entertainment</option>
+              <option value="Nuclear">Nuclear</option>
+              <option value="Public Service">Public Service</option>
+              <option value="Science">Science</option>
+              <option value="Sport">Sport</option>
+              <option value="Transport">Transport</option>
+            </select>
+          </div>
+
+          <div class="col s12 m2">
+          </div>
+
+        </div>
+
       </div>
-      <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-        <p><a href="#">This is a link</a></p>
-      </div>
-      <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-        <p>Here is some more information about this product that is only revealed once clicked on.</p>
-      </div>
+
     </div>
-  </div>
-  <div class="col s1"></div>
+
+
+
+
+
+  </form>
 </div>
-      
-
-
-
-          
