@@ -1,5 +1,5 @@
 <div class="row">
-  <form class="col s12">
+  <%= form_tag('/search?submit=true', class: "col s12", method: :get) do -%>
 
     <div class="section no-pad-bot" id="index-banner">
       <div class="container">
@@ -19,33 +19,36 @@
           <div class="col s12 m4">
             <div class="icon-block">
               <h2 class="center light-blue-text"><i class="material-icons"><%= image_tag('business_ads.png', height: 260) %></i>
+                <span>
+                  <input name="category" class="with-gap" type="radio" id="business_ads" value="business_ads" />
+                  <label for="business_ads">Business & Ads</label>
+                </span>
               </h2>
-              <span>
-                <input name="group1" type="radio" id="business_ads" />
-                <label for="business_ads">Business & Ads</label>
-              </span>
+
             </div>
           </div>
 
           <div class="col s12 m4">
             <div class="icon-block">
               <h2 class="center light-blue-text"><i class="material-icons"><%= image_tag('logo_identity.png', height: 260) %></i>
+                <span>
+                  <input name="category" class="with-gap" type="radio" id="logo_identity" value="logo_identity" />
+                  <label for="logo_identity">Logo & Identity</label>
+                </span>
               </h2>
-              <span>
-                <input name="group1" type="radio" id="logo_identity" />
-                <label for="logo_identity">Logo & Identity</label>
-              </span>
+
             </div>
           </div>
 
           <div class="col s12 m4">
             <div class="icon-block">
               <h2 class="center light-blue-text"><i class="material-icons"><%= image_tag('web_app.png', height: 260) %></i>
+                <span>
+                  <input name="category" class="with-gap" type="radio" id="web_app" value="web_app" />
+                  <label for="web_app">Web & App Design</label>
+                </span>
               </h2>
-              <span>
-                <input name="group1" type="radio" id="web_app" />
-                <label for="web_app">Web & App Design</label>
-              </span>
+
             </div>
           </div>
 
@@ -64,7 +67,7 @@
 
           <div class="col s12 m8">
             <label>Please select an Industry</label>
-            <select class="browser-default">
+            <select class="browser-default" name="industry">
               <option value="" disabled selected>Choose your industry</option>
 
               <option value="Defense">Defense</option>
@@ -93,8 +96,26 @@
     </div>
 
 
+    <div class="container">
+      <div class="section">
+        <div class="row">
+          <div class="col s12 m5"></div>
+          <div class="col s12 m2">
+            <button class="btn red lighten-1" type="submit" name="boton" value="searched" >Submit
+              <i class="material-icons right">Continue</i>
+            </button>
+
+          </div>
+          <div class="col s12 m5"></div>
+        </div>
+        <div class="row">
+          <br/>
+          <a href="/hello">back</a>
+        </div>
+      </div>
+    </div>
+ 
 
 
-
-  </form>
+  <% end -%>
 </div>

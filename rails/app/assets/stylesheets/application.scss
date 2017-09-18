@@ -6,3 +6,11 @@ $secondary-color: color("yellow", "base") !default;
 .blue-grey.lighten-5 {
     background-color: #fbfbfb !important;
 }
+
+input[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
+    background-color: #292822;
+}
+
+input[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
+    border: 2px solid #292822;
+}
