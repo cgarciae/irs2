@@ -6,4 +6,4 @@ RUN bundle install
 COPY ./brandon_logan_frontend .
 
 EXPOSE 3000
-CMD ["rails", "server", "-d"]
+CMD ["rails", "server", "-b", "0.0.0.0"]
