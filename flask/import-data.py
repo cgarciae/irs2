@@ -22,7 +22,7 @@ n_clusters = "7"
 @click.command()
 @click.option('--size', '-s', default = "299")
 @click.option('--folder', '-f', default = "./data/images2440")
-@click.option('--n-clusters', '-c', default = "7")
+@click.option('--n-clusters', '-c', default = "10")
 @click.option('--host', '-h', default = "localhost")
 def main(size, folder, n_clusters, host):
     size = int(size)
@@ -63,7 +63,7 @@ def main(size, folder, n_clusters, host):
 
 
     kmeans = KMeans(n_clusters = n_clusters, random_state=0)
-    clusters = kmeans.fit_predict(tsne_embeddings)
+    clusters = kmeans.fit_predict(embeddings)
 
     print("Clusters shape: {}".format(clusters.shape))
 
@@ -75,13 +75,13 @@ def main(size, folder, n_clusters, host):
         clusters = clusters
     ))
 
-    
+
     print("Connecting to MongoDB")
     # create mongo db
     client = MongoClient(host)
     db = client.brandon
 
-    db.images.drop()
+    db.images.drop()|
 
     print("Inserting data")
     odo(df, db.images)
