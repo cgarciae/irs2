@@ -1,0 +1,8 @@
+@import "materialize/components/color";
+$primary-color: color("blue", "lighten-2") !default;
+$secondary-color: color("yellow", "base") !default;
+@import 'materialize';
+
+.blue-grey.lighten-5 {
+    background-color: #fbfbfb !important;
+}
