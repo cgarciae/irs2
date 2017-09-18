@@ -76,9 +76,7 @@ def main(size, folder, n_clusters, host):
         clusters = clusters
     ))
 
-
-
-
+    
     print("Connecting to MongoDB")
     # create mongo db
     client = MongoClient(host)
