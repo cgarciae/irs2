@@ -28,7 +28,7 @@ def get_random(row):
         _id = row.id_list[i],
         clusters = row.clusters,
         filename = row.filename_list[i],
-        tsne_embedding = row.tsne_embeddings_list[i]
+        embedding = row.embeddings_list[i]
     )
 
 #
@@ -61,15 +61,12 @@ IMAGES = (
     .load()
 ).cache()
 
-IMAGES
-
-print(IMAGES.count())
 
 @app.route('/random-samples')
 def random_samples():
     randoms = IMAGES.groupBy("clusters").agg(
         F.collect_list("filename").alias("filename_list"),
-        F.collect_list("tsne_embeddings").alias("tsne_embeddings_list"),
+        F.collect_list("embeddings").alias("embeddings_list"),
         F.collect_list("_id").alias("id_list")
     ).collect()
 
@@ -80,23 +77,25 @@ def random_samples():
 
 @app.route('/images/<id>')
 def get_similar(id):
+    intial_radius = float(request.args.get('initial-radius', 100))
     radius = float(request.args.get('radius', 80))
     n = int(request.args.get('n', 10))
 
     db = mongo.db
 
     img = db.images.find_one({'_id': ObjectId(id) })
-    tsne_target = img["tsne_embeddings"]
+    target = img["embeddings"]
 
     selected_images = (
         IMAGES.rdd.map(lambda row: Row(
             _id = row._id,
             filename = row.filename,
-            distance = euclidean(row.tsne_embeddings, tsne_target)
+            distance = euclidean(row.embeddings, target)
         ))
         .toDF()
         .where(F.col("distance") <= radius )
         .orderBy("distance", ascending = True)
+        .withColumn("similarity", (F.lit(1.0) - (F.col("distance") / F.lit(intial_radius))) * F.lit(100.0) )
         .collect()
     )
     selected_images = selected_images[1:]
@@ -106,13 +105,6 @@ def get_similar(id):
     selected_images = [ r.asDict() for r in selected_images ]
 
     return jsonify(data = selected_images)
-
-    # from IPython.display import Image
-    # from IPython.core.display import HTML, display
-    #
-    # for row in selected_images:
-    #     filename = os.path.join(os.sep, "data", "images2440", row.filename)
-    #     display(Image(filename = filename))
 
 
 
