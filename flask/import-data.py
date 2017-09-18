@@ -11,6 +11,7 @@ import numpy as np
 from model import get_keras_objects
 from sklearn.manifold import TSNE
 from sklearn.cluster import KMeans
+import os
 
 
 
@@ -20,9 +21,10 @@ n_clusters = "7"
 
 @click.command()
 @click.option('--size', '-s', default = "299")
-@click.option('--folder', '-f', default = "/data/images2440")
+@click.option('--folder', '-f', default = "./data/images2440")
 @click.option('--n-clusters', '-c', default = "7")
-def main(size, folder, n_clusters):
+@click.option('--host', '-h', default = "localhost")
+def main(size, folder, n_clusters, host):
     size = int(size)
     n_clusters = int(n_clusters)
 
@@ -46,7 +48,7 @@ def main(size, folder, n_clusters):
 
     embeddings = []
     for img in features_test:
-        pred = sess.run(embedding,{image: [img], keras_training:False })
+        pred = sess.run(embedding,{image: [img], keras_training: False })
         embeddings.append(np.squeeze(pred))
 
     embeddings =  np.stack(embeddings)
@@ -78,7 +80,7 @@ def main(size, folder, n_clusters):
 
     print("Connecting to MongoDB")
     # create mongo db
-    client = MongoClient("localhost")
+    client = MongoClient(host)
     db = client.brandon
 
     db.images.drop()
