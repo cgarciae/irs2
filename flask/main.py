@@ -77,6 +77,7 @@ def random_samples():
 
 @app.route('/images/<id>')
 def get_similar(id):
+    intial_radius = float(request.args.get('radius', 100))
     radius = float(request.args.get('radius', 80))
     n = int(request.args.get('n', 10))
 
@@ -94,6 +95,7 @@ def get_similar(id):
         .toDF()
         .where(F.col("distance") <= radius )
         .orderBy("distance", ascending = True)
+        .withColumn("similarity", (1.0 - (F.col("distance") / intial_radius)) * 100.0 )
         .collect()
     )
     selected_images = selected_images[1:]
