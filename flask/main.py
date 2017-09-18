@@ -77,7 +77,7 @@ def random_samples():
 
 @app.route('/images/<id>')
 def get_similar(id):
-    intial_radius = float(request.args.get('radius', 100))
+    intial_radius = float(request.args.get('initial-radius', 100))
     radius = float(request.args.get('radius', 80))
     n = int(request.args.get('n', 10))
 
