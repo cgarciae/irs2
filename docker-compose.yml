@@ -23,6 +23,10 @@ services:
       - 3000:3000
     depends_on:
       - flask
+    volumes:
+      - ./rails:/code
+      - ./data/images2440:/code/public/brandimages
+    command: bash -c "bundle install && rails server -b 0.0.0.0"
 
   flask:
     build: ./flask
