@@ -46,6 +46,7 @@ class HomeController < ApplicationController
 
     if params[:img_id].present? && zoom[:counter] >= 1
       zoom[:last_image] = params[:last_image]
+      zoom[:last_image_prob] = params[:last_image_prob]
 
       @images = Backend.similar(id: params[:img_id],
                                 radius: zoom[:radius],

@@ -21,7 +21,7 @@
 
               
               <div class="card">
-                <a href="/zoom-in?img_id=<%= image["_id"].first %>&last_image=<%= image["filename"] %>">
+                <a href="/zoom-in?img_id=<%= image["_id"].first %>&last_image=<%= image["filename"] %>&last_image_prob=<%=image["similarity"]%>">
                   <div class="card-image">
                       <img class="activator" src="<%= Backend::IMAGES_URL + image["filename"] %>">
                     
