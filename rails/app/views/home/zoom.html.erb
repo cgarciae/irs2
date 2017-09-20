@@ -4,9 +4,8 @@
     <div class="section no-pad-bot" id="index-banner">
       <div class="container">
         <br><br>
-        <h1 class="header center red-text text-lighten-1">Zoom In</h1>
         <div class="row center">
-          <h5 class="header col s12 light">Select Images an press Summary when your done</h5>
+          <h5 class="header col s12 light">This is the Zoom-In select <%= session[:zoom].try(:[], :counter) || 5 %>  images you like most</h5>
         </div>
       </div>
     </div>
@@ -19,18 +18,31 @@
           <div>
           <% bucket.each do |image| %>
             <div class="col s12 m3">
- 
+
+              
               <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                  <img class="activator" src="<%= Backend::IMAGES_URL + image["filename"] %>" height="200" >
-                </div>
-                <div class="card-content">
-                  <p><a href="/zoom-in?img_id=<%= image["_id"].first %>&last_image=<%= image["filename"] %>">Liked click here ?</a></p>
+                <a href="/zoom-in?img_id=<%= image["_id"].first %>&last_image=<%= image["filename"] %>">
+                  <div class="card-image">
+                      <img class="activator" src="<%= Backend::IMAGES_URL + image["filename"] %>">
+                    
+                  </div>
+                  <div class="card-content">
+
+                    <% if image["similarity"].present? %>
+                      <div class="percentageContainer" data-prob=<%= image["similarity"].round(2) %>>
+                          <span class="percentageValue"></span><span class="prob"><%= image["similarity"].round(2) %>%</span>
+                      </div>
+                    <% end %>
+                  </div>
+                </a>
+                <div class="card-action">
+                  <% Tags.all.sample(4).each do |tag| %> 
+                    <div class="chip"><%= tag %></div>
+                  <% end %>
                 </div>
          
               </div>
-              <%= hidden_field_tag 'image_path_', (Backend::IMAGES_URL + image["filename"]) %>
-              <%= hidden_field_tag 'image_id_', image["_id"] %>
+              
 
             </div>
           <% end %>
@@ -63,5 +75,21 @@
       </div>
     </div>
 
+    <%= javascript_tag do %>
+      function setPercentage(value, container, element) {
+          var newWidth = parseInt(container.width() * value / 100.0);
+          element.animate({
+             width: newWidth + "px"
+          }, 500);
+      }
+
+      var bars = $(".percentageContainer");
+      bars.each(function() {
+        var percentageValue = parseFloat(this.getAttribute("data-prob"));
+        var percentage = this.getElementsByClassName('percentageValue')[0];
+        setPercentage(percentageValue, $(this), $(percentage));
+      });
+
+    <% end %>
   <% end -%>
 </div>
