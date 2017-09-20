@@ -14,3 +14,32 @@ input[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + lab
 input[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:before, [type="radio"].with-gap:checked + label:after {
     border: 2px solid #292822;
 }
+
+.percentageContainer {
+    color: black;
+    width: 100px;
+    height: 10px;
+    text-align: left;
+    margin: 10px auto 0;
+    padding: 0;
+    border: 1px solid #ef5350;
+    position: relative;
+}
+
+.percentageValue {
+    background-color: #ef5350;
+    height: 9px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0px;
+}
+
+.prob {
+    color: #ef5350;
+    position: absolute;
+    margin-top: 9px;
+    font-size: 10px;
+}

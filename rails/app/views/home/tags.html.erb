@@ -4,9 +4,8 @@
     <div class="section no-pad-bot" id="index-banner">
       <div class="container">
         <br><br>
-        <h1 class="header center red-text text-lighten-1">Tags</h1>
         <div class="row center">
-          <h5 class="header col s12 light">Select a tags that shape your branding</h5>
+          <h5 class="header col s12 light">Remove tags that don't fit your brand, feel free to add the ones that you think fit!</h5>
         </div>
       </div>
     </div>
@@ -15,69 +14,22 @@
       <div class="">
 
         <!--   Mind Marks   -->
-        <p class="flow-text">Check Mind Marks</p>
+        <h6>Mind Marks</h6>
         <div class="row">
           <div>
-            
+            <div class="chips chips-initial"></div>
 
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="mind-mark-example-1" name="mind-mark-example-1" />
-              <label for="mind-mark-example-1">Dream</label>
-            </div>
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="mind-mark-example-2" name="mind-mark-example-2" />
-              <label for="mind-mark-example-2">Land</label>
-            </div>
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="mind-mark-example-3" name="mind-mark-example-3" />
-              <label for="mind-mark-example-3">Magic</label>
-            </div>
+            <%= javascript_tag do %>
+                var chips = <%= raw(Tags::MIND_MARKS.values.flatten.map{|w| {tag: w} }.sample(12).to_json) %>;
+                $('.chips').material_chip();
+                $('.chips-initial').material_chip({
+                  data: chips,
+                }); 
+                      
+            <% end %>
           </div>
 
         </div>
-
-        <div class="row">
-          <div>
-            
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="mind-mark-example-3" name="mind-mark-example-3" />
-              <label for="mind-mark-example-3">Niche</label>
-            </div>
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="mind-mark-example-5" name="mind-mark-example-5" />
-              <label for="mind-mark-example-5">Question</label>
-            </div>
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="mind-mark-example-6" name="mind-mark-example-6" />
-              <label for="mind-mark-example-6">Trust</label>
-            </div>
-          </div>
-
-        </div>          
-
-        <div class="row">
-          <div>
-            
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="mind-mark-example-7" name="mind-mark-example-7" />
-              <label for="mind-mark-example-7">Un Marked</label>
-            </div>
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="mind-mark-example-8" name="mind-mark-example-8" />
-              <label for="mind-mark-example-8">Service</label>
-            </div>
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="mind-mark-example-9" name="mind-mark-example-9" />
-              <label for="mind-mark-example-9">Category</label>
-            </div>
-          </div>
-
-        </div>  
 
       </div>
 
@@ -85,116 +37,44 @@
       <div class="">
 
         <!--   Archetypes   -->
-        <p class="flow-text">Check Archetypes</p>
+        <h6>Archetypes</h6>
         <div class="row">
           <div>
-            
+            <div class="chips-2 archetypes"></div>
 
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="archetypes-example-1" name="archetypes-example-1" />
-              <label for="archetypes-example-1">The Innocent</label>
-            </div>
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="archetypes-example-2" name="archetypes-example-2" />
-              <label for="archetypes-example-2">The Orphan</label>
-            </div>
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="archetypes-example-3" name="archetypes-example-3" />
-              <label for="archetypes-example-3">The Hero</label>
-            </div>
+            <%= javascript_tag do %>
+                var chips_2 = <%= raw(Tags::CHARACTER_ARCHETYPES.values.flatten.map{|w| {tag: w} }.sample(12).to_json) %>;
+                $('.chips-2').material_chip();
+                $('.archetypes').material_chip({
+                  data: chips_2,
+                }); 
+                      
+            <% end %>
           </div>
 
         </div>
 
-        <div class="row">
-          <div>
-            
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="archetypes-example-4" name="archetypes-example-4" />
-              <label for="archetypes-example-4">The Caregiver</label>
-            </div>
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="archetypes-example-5" name="archetypes-example-5" />
-              <label for="archetypes-example-5">The Explorer</label>
-            </div>
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="archetypes-example-6" name="archetypes-example-6" />
-              <label for="archetypes-example-6">The Rebel</label>
-            </div>
-          </div>
-
-        </div>          
-
-        <div class="row">
-          <div>
-            
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="archetypes-example-7" name="archetypes-example-7" />
-              <label for="archetypes-example-7">The Lover</label>
-            </div>
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="archetypes-example-8" name="archetypes-example-8" />
-              <label for="archetypes-example-8">The Creator</label>
-            </div>
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="archetypes-example-9" name="archetypes-example-9" />
-              <label for="archetypes-example-9">The Ruler</label>
-            </div>
-          </div>
-
-        </div>  
       </div>
 
 <div class="">
 
         <!--   Values   -->
-        <p class="flow-text">Check Values</p>
+        <h6>Values</h6>
         <div class="row">
           <div>
-            
+            <div class="chips-3 brand-values"></div>
 
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="mind-mark-example-1" name=""value-example-1" />
-              <label for="value-example-1">Value 1</label>
-            </div>
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="value-example-2" name=""value-example-2" />
-              <label for="value-example-2">Value 2</label>
-            </div>
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="value-example-3" name=""value-example-3" />
-              <label for="value-example-3">Value 2</label>
-            </div>
+            <%= javascript_tag do %>
+                var chips = <%= raw(Tags::BRAND_VALUES.values.flatten.map{|w| {tag: w} }.sample(12).to_json) %>;
+                $('.chips-3').material_chip();
+                $('.brand-values').material_chip({
+                  data: chips,
+                }); 
+                      
+            <% end %>
           </div>
 
-        </div>
-
-        <div class="row">
-          <div>
-            
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="value-example-4" name=""value-example-4" />
-              <label for="value-example-1">Value 4</label>
-            </div>
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="value-example-5" name=""value-example-5" />
-              <label for="value-example-5">Value 5</label>
-            </div>
-
-            <div class="col s12 m3">
-              <input type="checkbox" class="filled-in" id="value-example-6" name=""value-example-6" />
-              <label for="mind-mark-example-6">Value 6</label>
-            </div>
-          </div>
-
-        </div>          
+        </div>       
 
       </div>
 
