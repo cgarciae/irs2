@@ -68,4 +68,7 @@ class HomeController < ApplicationController
 
   def summary
   end
+
+  def designers
+  end
 end
