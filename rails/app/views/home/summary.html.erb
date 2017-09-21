@@ -5,7 +5,7 @@
       <div class="container">
         <br><br>
         <div class="row center">
-          <h5 class="header col s12 light">This is the summary of customer settings that fits the branding</h5>
+          <h5 class="header col s12 light">This is the summary of customer settings that fits the brand</h5>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
               <div class="card">
      
                   <div class="card-image">
-                      <img class="activator" src="<%= Backend::IMAGES_URL + session[:zoom].try(:[], :last_image) %>">
+                      <img class="activator" src="<%= Backend::IMAGES_URL + session[:zoom].try(:[], :last_image).to_s %>">
                   </div>
                   <div class="card-content">
 
@@ -34,9 +34,46 @@
                   </div>
 
                 <div class="card-action">
-                  <% Tags.all.sample(15).each do |tag| %> 
-                    <div class="chip"><%= tag %></div>
-                  <% end %>
+
+
+  <ul class="collection">
+    <li class="collection-item avatar">
+      <i class="material-icons circle pink">blur_circular</i>
+      <span class="title">Found values</span>
+      <p><br/>
+          <% Tags.all.sample(15).each do |tag| %> 
+            <div class="chip"><%= tag %></div>
+          <% end %>
+      </p>
+
+    </li>
+    <li class="collection-item avatar">
+      <i class="material-icons circle blue">blur_on</i>
+      <span class="title">Mind Marks</span>
+      <p><br/>
+        <%= Tags::MIND_MARKS.keys.sample(3).join(", ") %>
+      </p>
+
+    </li>
+    <li class="collection-item avatar">
+      <i class="material-icons circle green">border_left</i>
+      <span class="title">Archetypes</span>
+      <p><br/>
+        <%= Tags::CHARACTER_ARCHETYPES.keys.sample(3).join(", ") %>
+      </p>
+
+    </li>
+    <li class="collection-item avatar">
+      <i class="material-icons circle red">brush</i>
+      <span class="title">Mark Values</span>
+      <p><br/>
+        <%= Tags::BRAND_VALUES.keys.sample(3).join(", ") %>
+      </p>
+
+    </li>
+  </ul>
+           
+
                 </div>
          
               </div>
@@ -50,16 +87,14 @@
         <div class="row">
           <div class="col s12 m2"></div>
 
-          <div class="col s12 m3">
+          <div class="col s12 m4">
             <button class="btn red lighten-1" type="submit" name="boton" value="zoomed" >Recommend Designer
-              <i class="material-icons right">Recommend Designer</i>
             </button>
           </div>
-          <div class="col s12 m2"></div>
           <div class="col s12 m3">
-            <button class="btn red lighten-1" type="submit" name="boton" value="zoomed" >Generate Image
-              <i class="material-icons right">Generate Image</i>
-            </button>
+  <!-- Modal Trigger -->
+  <a class="btn modal-trigger green" href="#modal1">Generate Image</a>
+        
           </div>
           <div class="col s12 m2"></div>
 
@@ -74,19 +109,35 @@
         <div class="row">
           <div class="col s12 m5"></div>
           <div class="col s12 m2">
-            <button class="btn red lighten-1" type="submit" name="boton" value="zoomed" >Start over
-              <i class="material-icons right">Continue</i>
-            </button>
-
           </div>
           <div class="col s12 m5"></div>
         </div>
         <div class="row">
           <br/>
           <a href="/">volver</a>
+            <button class="btn red lighten-1" type="submit" name="boton" value="zoomed" >Start over
+            </button>
         </div>
       </div>
     </div>
+
+
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Fitted Image</h4>
+      <p><img class="activator" src="<%= Backend::IMAGES_URL + session[:zoom]["rand_img"].to_s %>" width="300"></p>
+    </div>
+    <div class="modal-footer">
+      <% Tags.all.sample(7).each do |tag| %> 
+        <div class="chip"><%= tag %></div>
+      <% end %>
+    </div>
+  </div>
+          
+
+
     <%= javascript_tag do %>
       function setPercentage(value, container, element) {
           var newWidth = parseInt(container.width() * value / 100.0);
@@ -102,6 +153,12 @@
         setPercentage(percentageValue, $(this), $(percentage));
       });
 
+
+      $(document).ready(function(){
+        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+      });
+          
     <% end %>
   <% end -%>
 </div>

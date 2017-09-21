@@ -41,6 +41,8 @@ class HomeController < ApplicationController
       zoom[:radius] = 200
       @images = Backend.get_rand_images.each_slice(4)
       zoom[:last_image] = @images.first.try(:first).try(:[], "filename")
+      zoom[:rand_img] = @images.to_a.flatten.map{|o| o.try(:[], "filename")}.sample(3)[0]
+
       session[:zoom] = zoom
     end
 
