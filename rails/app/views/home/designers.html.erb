@@ -5,7 +5,7 @@
       <div class="container">
         <br><br>
         <div class="row center">
-          <h5 class="header col s12 light">This is the summary of customer settings that fits the brand</h5>
+          <h5 class="header col s12 light">They are the recommended designers</h5>
         </div>
       </div>
     </div>
@@ -21,16 +21,8 @@
 
               <div class="card">
      
-                  <div class="card-image">
-                      <img class="activator" src="<%= Backend::IMAGES_URL + session[:zoom].try(:[], :last_image).to_s %>">
-                  </div>
                   <div class="card-content">
-
-                    <% if session[:zoom].try(:[], :last_image_prob).present? %>
-                      <div class="percentageContainer" data-prob=<%= session[:zoom].try(:[], :last_image_prob).to_f.round(2) %>>
-                          <span class="percentageValue"></span><span class="prob"><%= session[:zoom].try(:[], :last_image_prob).to_f.round(2) %>%</span>
-                      </div>
-                    <% end %>
+                    Designers
                   </div>
 
                 <div class="card-action">
@@ -38,37 +30,43 @@
 
   <ul class="collection">
     <li class="collection-item avatar">
-      <i class="material-icons circle pink">blur_circular</i>
-      <span class="title">Found values</span>
-      <p><br/>
-          <% Tags.all.sample(15).each do |tag| %> 
-            <div class="chip"><%= tag %></div>
-          <% end %>
-      </p>
+      <%= image_tag("profile1.png", class: "circle") %>
+      <span class="title">Juan Martinez</span>
+        <br/>
+        <div class="percentageContainer" data-prob=88.3>
+          <span class="percentageValue"></span>
+          <span class="prob">88.3%</span>
+        </div>
 
     </li>
     <li class="collection-item avatar">
-      <i class="material-icons circle blue">blur_on</i>
-      <span class="title">Mind Marks</span>
-      <p><br/>
-        <%= Tags::MIND_MARKS.keys.sample(3).join(", ") %>
-      </p>
+      <%= image_tag("profile2.png", class: "circle") %>
+      <span class="title">Victor Proaño</span>
+        <br/>
+        <div class="percentageContainer" data-prob=85.79>
+          <span class="percentageValue"></span>
+          <span class="prob">85.79%</span>
+        </div>
 
     </li>
     <li class="collection-item avatar">
-      <i class="material-icons circle green">border_left</i>
-      <span class="title">Archetypes</span>
-      <p><br/>
-        <%= Tags::CHARACTER_ARCHETYPES.keys.sample(3).join(", ") %>
-      </p>
+      <%= image_tag("profile3.png", class: "circle") %>
+      <span class="title">Carlos Navas</span>
+      <br/>
+        <div class="percentageContainer" data-prob=79.8>
+          <span class="percentageValue"></span>
+          <span class="prob">79.8%</span>
+        </div>
 
     </li>
     <li class="collection-item avatar">
-      <i class="material-icons circle red">brush</i>
-      <span class="title">Mark Values</span>
-      <p><br/>
-        <%= Tags::BRAND_VALUES.keys.sample(3).join(", ") %>
-      </p>
+      <%= image_tag("profile4.png", class: "circle") %>
+      <span class="title">Paul Pinto</span>
+      <br/>
+        <div class="percentageContainer" data-prob=65.8>
+          <span class="percentageValue"></span>
+          <span class="prob">65.8%</span>
+        </div>
 
     </li>
   </ul>
@@ -81,21 +79,6 @@
             </div>
             <div class="col s12 m2"></div>
           </div>
-
-        </div>
-
-        <div class="row">
-          <div class="col s12 m2"></div>
-
-          <div class="col s12 m4">
-            <a class="btn red lighten-1" href="/designers">Recommend Designer</a>
-          </div>
-          <div class="col s12 m3">
-  <!-- Modal Trigger -->
-  <a class="btn modal-trigger green" href="#modal1">Generate Image</a>
-        
-          </div>
-          <div class="col s12 m2"></div>
 
         </div>
 
@@ -113,9 +96,7 @@
         </div>
         <div class="row">
           <br/>
-          <a href="/">volver</a>
-            <button class="btn red lighten-1" type="submit" name="boton" value="zoomed" >Start over
-            </button>
+          <a href="/summary">volver</a>
         </div>
       </div>
     </div>
