@@ -90,29 +90,82 @@ tragically disapproval society friends family tragic situation)
 }
 
 MIND_MARKS = {
-  "Dream" => %W(dream),
-  "Niche" => %W(niche),
-  "Land" => %W(land),
-  "Magic" => %W(magic),
-  "Question" => %W(question),
-  "Trust" => %W(trust),
-  "UnMarked" => %W(unmarked),
-  "Service" => %W(service),
-  "Category" => %W(category)
+  "Dream Marks" => ["Dream Marks"],
+  "Niche Marks" => ["Niche Marks"],
+  "Land Marks" => ["Land Marks"],
+  "Magic Marks" => ["Magic Marks"],
+  "Question Marks" => ["Question Marks"],
+  "Trust Marks" => ["Trust Marks"],
+  "UnMarked Marks" => ["Unmarked Marks"],
+  "Service Marks" => ["Service Marks"],
+  "Category Marks" => ["Category Marks"]
 }
 
-BRAND_VALUES = {
-  "Quality" => %W(quality customers confident refund reliability),
-  "Value" => %W(value uniqueness innovation),
-  "Fun" => %W(happiness perspective fashion),
-  "Trust" => %W(brand trust loyal promise),
-  "Passion" => %W(passion products boldness)
+BRAND_ARCHETYPES = {
+"The Innocent" => ["The Innocent"],
+"The Regular Guy or Gal" => ["The Regular Guy or Gal"],
+"The Hero" => ["The Hero"],
+"The Outlaw" => ["The Outlaw"],
+"The Explorer" => ["The Explorer"],
+"The Creator" => ["The Creator"],
+"The Ruler" => ["The Ruler"],
+"The Magician" => ["The Magician"],
+"The Lover" => ["The Lover"],
+"The Caregiver" => ["The Caregiver"],
+"The Jester" => ["The Jester"],
+"The Sage" => ["The Sage"]
 }
+
+BRAND_ARCHETYPES_DESC = {
+"The Innocent" => "The Innocent",
+"The Regular Guy or Gal" => "The Regular Guy or Gal",
+"The Hero" => "The Hero",
+"The Outlaw" => "The Outlaw",
+"The Explorer" => "The Explorer",
+"The Creator" => "The Creator",
+"The Ruler" => "The Ruler",
+"The Magician" => "Goal: Make dreams come true, create something special \n
+Traits: Visionary, charismatic, imaginative, idealistic, spiritual \n
+Drawback: Could take risks that lead to bad outcomes \n
+Marketing niche: Help people transform their world, inspire change, expand consciousness \n
+Example: Disney, Wizard of Oz, Apple \n",
+"The Lover" => "The Lover",
+"The Caregiver" => "The Caregiver",
+"The Jester" => "The Jester",
+"The Sage" => "The Sage"
+}
+
+
+BRAND_VALUES = {
+  "Creativity" => ["Creativity"],
+  "Freedom" => ["Freedom"],
+  "Self-empowerment" => ["Self-empowerment"],
+  "Victory" => ["Victory"],
+  "Happiness" => ["Happiness"],
+  "Possibility" => ["Possibility"],
+  "Optimism" => ["Optimism"],
+  "Genuine" => ["Genuine"],
+  "Exceptional" => ["Exceptional"],
+  "Innovative" => ["Innovative"],
+  "Involved" => ["Involved"]
+}
+BRAND_VALUES_EXAMPLE =[
+  "Customer Commitment",
+  "Quality",
+  "Integrity",
+  "Teamwork",
+  "Respect for People",
+  "Good Citizenship",
+  "A Will to Win",
+  "Personal Accountability"
+
+]
+
+
 
   def self.all
     [
-      SITUATIONAL_ARCHETYPES.values.sample(8) +
-      CHARACTER_ARCHETYPES.values.sample(8) +
+      BRAND_ARCHETYPES.values.sample(8) +
       MIND_MARKS.values +
       BRAND_VALUES.values
     ].flatten.map{|d| d.downcase}

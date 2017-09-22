@@ -37,13 +37,14 @@
       <div class="">
 
         <!--   Archetypes   -->
-        <h6>Archetypes</h6>
+        <h6>Brand Archetypes</h6>
         <div class="row">
           <div>
-            <div class="chips-2 archetypes"></div>
+            <div class="chips-2 archetypes">
+            </div>
 
             <%= javascript_tag do %>
-                var chips_2 = <%= raw(Tags::CHARACTER_ARCHETYPES.values.flatten.map{|w| {tag: w} }.sample(12).to_json) %>;
+                var chips_2 = <%= raw(Tags::BRAND_ARCHETYPES.values.flatten.map{|w| {tag: w} }.sample(12).to_json) %>;
                 $('.chips-2').material_chip();
                 $('.archetypes').material_chip({
                   data: chips_2,
@@ -59,7 +60,7 @@
 <div class="">
 
         <!--   Values   -->
-        <h6>Values</h6>
+        <h6>Brand Values</h6>
         <div class="row">
           <div>
             <div class="chips-3 brand-values"></div>
@@ -80,6 +81,7 @@
 
     </div>
 
+
     <div class="container">
       <div class="section">
         <div class="row">
@@ -99,5 +101,29 @@
       </div>
     </div>
 
+
+    <div>
+      <h7>References:</h7>
+      <div class="col s12 m6">
+        <ul>
+        <% Tags::BRAND_ARCHETYPES.keys.each do |k| %>
+         <li> <a class="btn tooltipped blue" data-position="bottom" data-delay="50" data-tooltip="<%= Tags::BRAND_ARCHETYPES_DESC[k] %>"><%= k %></a></li>
+        <% end %>
+        </ul>
+      </div>
+      <div class="col s12 m6">
+      <ul>
+        <% Tags::BRAND_VALUES.keys.each do |k| %>
+         <li> <a class="btn tooltipped blue" data-position="bottom" data-delay="50" data-tooltip="<%= Tags::BRAND_VALUES_EXAMPLE.sample %>"><%= k %></a></li>
+        <% end %>
+      </ul>
+      </div>
+            <%= javascript_tag do %>
+              $(document).ready(function(){
+                $('.tooltipped').tooltip({delay: 50});
+              });
+            <% end %>
+
+    </div>
   <% end -%>
 </div>
