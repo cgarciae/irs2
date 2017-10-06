@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   before_action do
     session[:zoom] = (session.try(:[], :zoom) || {}).with_indifferent_access
+    session[:data] = (session.try(:[], :data) || {}).with_indifferent_access
   end
 
   def index
@@ -49,6 +50,7 @@ class HomeController < ApplicationController
     if params[:img_id].present? && zoom[:counter] >= 1
       zoom[:last_image] = params[:last_image]
       zoom[:last_image_prob] = params[:last_image_prob]
+      zoom[:last_image_id] = params[:img_id]
 
       @images = Backend.similar(id: params[:img_id],
                                 radius: zoom[:radius],
@@ -67,6 +69,11 @@ class HomeController < ApplicationController
   end
 
   def summary
+    zoom = session[:zoom]
+    @image = Backend.similar(id: zoom[:last_image_id],
+                          radius: zoom[:radius],
+                          n: 10,
+                          init_radius: 200).sample
   end
 
   def designers
