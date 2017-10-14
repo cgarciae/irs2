@@ -56,6 +56,7 @@ class HomeController < ApplicationController
                                 radius: zoom[:radius],
                                 n: 10,
                                 init_radius: 200).each_slice(4)
+
       zoom[:counter] -= 1
       zoom[:radius] -= 27
       session[:zoom] = zoom
