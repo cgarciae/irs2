@@ -19,16 +19,16 @@
           <div>
             <div class="chips chips-initial"></div>
 
-            <%= javascript_tag do %>
-                var chips = <%= raw(Tags::MIND_MARKS.values.flatten.map{|w| {tag: w} }.sample(12).to_json) %>;
-                $('.chips').material_chip();
-                $('.chips-initial').material_chip({
-                  data: chips,
-                }); 
-                      
-            <% end %>
           </div>
 
+        </div>
+        <div class="row">
+          <% Tags::MIND_MARKS.values.flatten.each_with_index do |c, i| %>
+            <div class="chip chip-click" data-chipstarget=".chips-initial" data-name="<%= c %>" id="mind-marks-<%= i %>">
+            <%= c %>
+            <a class="tooltipped grey-text darken-1" data-position="top" data-delay="50" data-tooltip="<%= c %>">?</a>
+            </div>
+          <% end %>
         </div>
 
       </div>
@@ -40,21 +40,20 @@
         <h6>Brand Archetypes</h6>
         <div class="row">
           <div>
-            <div class="chips-2 archetypes">
+            <div class="chips chips-2 chip-archetypes">
             </div>
 
-            <%= javascript_tag do %>
-                var chips_2 = <%= raw(Tags::BRAND_ARCHETYPES.values.flatten.map{|w| {tag: w} }.sample(12).to_json) %>;
-                $('.chips-2').material_chip();
-                $('.archetypes').material_chip({
-                  data: chips_2,
-                }); 
-                      
-            <% end %>
           </div>
 
         </div>
-
+        <div class="row">
+          <% Tags::BRAND_ARCHETYPES.values.flatten.each_with_index do |c, i| %>
+            <div class="chip chip-click" data-chipstarget=".chip-archetypes" data-name="<%= c %>" id="archetype-<%= i %>">
+            <%= c %>
+            <a class="tooltipped grey-text darken-1" data-position="top" data-delay="50" data-tooltip="<%= Tags::BRAND_ARCHETYPES_DESC[c]%>" >?</a>
+            </div>
+          <% end %>
+        </div>
       </div>
 
 <div class="">
@@ -63,20 +62,18 @@
         <h6>Brand Values</h6>
         <div class="row">
           <div>
-            <div class="chips-3 brand-values"></div>
-
-            <%= javascript_tag do %>
-                var chips = <%= raw(Tags::BRAND_VALUES.values.flatten.map{|w| {tag: w} }.sample(12).to_json) %>;
-                $('.chips-3').material_chip();
-                $('.brand-values').material_chip({
-                  data: chips,
-                }); 
-                      
-            <% end %>
+            <div class="chips chips-3 brand-values"></div>
           </div>
 
         </div>       
-
+        <div class="row">
+          <% Tags::BRAND_VALUES.values.flatten.each_with_index do |c, i| %>
+            <div class="chip chip-click" data-chipstarget=".brand-values" data-name="<%= c %>" id="brand-<%= i %>">
+            <%= c %>
+            <a class="tooltipped grey-text darken-1" data-position="top" data-delay="50" data-tooltip="<%= Tags::BRAND_VALUES_EXAMPLE.sample %>">?</a>
+            </div>
+          <% end %>
+        </div>
       </div>
 
     </div>
@@ -101,29 +98,29 @@
       </div>
     </div>
 
-
-    <div>
-      <h7>References:</h7>
-      <div class="col s12 m6">
-        <ul>
-        <% Tags::BRAND_ARCHETYPES.keys.each do |k| %>
-         <li> <a class="btn tooltipped blue" data-position="bottom" data-delay="50" data-tooltip="<%= Tags::BRAND_ARCHETYPES_DESC[k] %>"><%= k %></a></li>
-        <% end %>
-        </ul>
-      </div>
-      <div class="col s12 m6">
-      <ul>
-        <% Tags::BRAND_VALUES.keys.each do |k| %>
-         <li> <a class="btn tooltipped blue" data-position="bottom" data-delay="50" data-tooltip="<%= Tags::BRAND_VALUES_EXAMPLE.sample %>"><%= k %></a></li>
-        <% end %>
-      </ul>
-      </div>
-            <%= javascript_tag do %>
-              $(document).ready(function(){
-                $('.tooltipped').tooltip({delay: 50});
-              });
-            <% end %>
-
-    </div>
   <% end -%>
+
+    <%= javascript_tag do %>
+      $(document).ready(function(){
+        $('.tooltipped').tooltip({delay: 50});
+
+        $( ".chip-click" ).on( "click", function() {
+          var chip =   '<div class="chip chip-info">' +
+                        $( this ).data("name") +
+                        '<i class="close material-icons" data-tagtarget="#' +
+                         $( this ).attr('id') + '" >close</i>' +
+                       '</div>' ;
+                             
+          $( $( this ).data("chipstarget") ).append( chip );
+          $( this ).hide();
+
+          $( ".chip-info" ).on( "click", function() {
+            $($( this ).find('.close').data("tagtarget")).show();
+          });
+        });
+
+
+
+      });
+    <% end %>
 </div>

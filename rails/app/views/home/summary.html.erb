@@ -22,13 +22,13 @@
               <div class="card">
      
                   <div class="card-image">
-                      <img class="activator" src="<%= Backend::IMAGES_URL + session[:zoom].try(:[], :last_image).to_s %>">
+                      <img class="activator" src="<%= Backend::IMAGES_URL + @image["filename"].to_s %>">
                   </div>
                   <div class="card-content">
 
-                    <% if session[:zoom].try(:[], :last_image_prob).present? %>
-                      <div class="percentageContainer" data-prob=<%= session[:zoom].try(:[], :last_image_prob).to_f.round(2) %>>
-                          <span class="percentageValue"></span><span class="prob"><%= session[:zoom].try(:[], :last_image_prob).to_f.round(2) %>%</span>
+                    <% if @image.present? %>
+                      <div class="percentageContainer" data-prob=<%= @image.try(:[], "similarity").to_f.round(2) %>>
+                          <span class="percentageValue"></span><span class="prob"><%= @image.try(:[], "similarity").to_f.round(2) %>%</span>
                       </div>
                     <% end %>
                   </div>
@@ -88,14 +88,14 @@
           <div class="col s12 m2"></div>
 
           <div class="col s12 m4">
-            <a class="btn red lighten-1" href="/designers">Recommend Designer</a>
+            <a class="btn red lighten-1" href="/designers">Perfect Match Designers</a>
           </div>
-          <div class="col s12 m3">
+          <div class="col s12 m5">
   <!-- Modal Trigger -->
-  <a class="btn modal-trigger green" href="#modal1">Generate Image</a>
+  <a class="btn modal-trigger green" href="#modal1">Generate A.I recommendation</a>
         
           </div>
-          <div class="col s12 m2"></div>
+          
 
         </div>
 
@@ -125,7 +125,8 @@
   <!-- Modal Structure -->
   <div id="modal1" class="modal modal-trigger">
     <div class="modal-content">
-      <h4>Generated Image</h4>
+      <h4>Image generated</h4>
+      <span>First attempt on generate an image from data</span>
       <p><%= image_tag('frank.jpg', size: "500") %></p>
     </div>
     <div class="modal-footer">
