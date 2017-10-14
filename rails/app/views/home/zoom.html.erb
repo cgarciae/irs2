@@ -5,7 +5,7 @@
       <div class="container">
         <br><br>
         <div class="row center">
-          <h5 class="header col s12 light">This is the Zoom-In select <b>step <%= {1 => 5, 2=>4, 3=>3, 4=>2, 5=>1}.fetch(session[:zoom].try(:[], :counter).to_i, 1) %>/5</b>, select 1 images from this screen.</h5>
+          <h5 class="header col s12 light">This is the Zoom-In select <b>step <%= {1 => 5, 2=>4, 3=>3, 4=>2, 5=>1}.fetch(@intention["data"].try(:[], :counter).to_i, 1) %>/5</b>, select 1 images from this screen.</h5>
         </div>
       </div>
     </div>

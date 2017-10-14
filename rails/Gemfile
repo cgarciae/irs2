@@ -26,6 +26,9 @@ gem 'jquery-turbolinks'
 gem 'jbuilder', '~> 2.5'
 gem 'materialize-sass'
 gem 'jquery-rails'
+gem 'factory_girl_rails'
+gem 'mongoid'
+gem 'faker', :git => 'git://github.com/stympy/faker.git', :branch => 'master'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -49,6 +52,14 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem 'mongoid-rspec', git: 'https://github.com/mongoid-rspec/mongoid-rspec.git'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.6'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

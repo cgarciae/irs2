@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   get 'intuitive-brief', to: 'home#brief'
   get 'hello', to: 'home#hello'
   get 'search', to: 'home#search'
-  get 'tags', to: 'home#tags'
   get 'zoom-in', to: 'home#zoom', as: :zoom
   get 'summary', to: 'home#summary'
   get 'designers', to: 'home#designers'

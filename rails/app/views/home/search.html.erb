@@ -96,6 +96,42 @@
 
     <div class="container">
       <div class="section">
+
+        <!--   Icon Section   -->
+        <div class="row">
+          <div class="col s12 m2">
+          </div>
+
+          <div class="col s12 m8">
+            <label>Select Brand Values</label>
+            <div class="row">
+              <div>
+                <div class="chips chips-3 brand-values"></div>
+              </div>
+
+            </div>       
+            <div class="row">
+              <% Tags::BRAND_VALUES.values.flatten.each_with_index do |c, i| %>
+                <div class="chip chip-click" data-chipstarget=".brand-values" data-name="<%= c %>" id="brand-<%= i %>">
+                <%= c %>
+                <a class="tooltipped grey-text darken-1" data-position="top" data-delay="50" data-tooltip="<%= Tags::BRAND_VALUES_EXAMPLE.sample %>">?</a>
+                </div>
+              <% end %>
+            </div>
+              </div>
+
+              <div class="col s12 m2">
+            </div>
+
+          </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="container">
+      <div class="section">
         <div class="row">
           <div class="col s12 m5"></div>
           <div class="col s12 m2">
@@ -115,3 +151,27 @@
 
   <% end -%>
 </div>
+
+<%= javascript_tag do %>
+  $(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+
+    $( ".chip-click" ).on( "click", function() {
+      var chip =   '<div class="chip chip-info">' +
+                    $( this ).data("name") +
+                    '<i class="close material-icons" data-tagtarget="#' +
+                     $( this ).attr('id') + '" >close</i>' +
+                   '</div>' ;
+                         
+      $( $( this ).data("chipstarget") ).append( chip );
+      $( this ).hide();
+
+      $( ".chip-info" ).on( "click", function() {
+        $($( this ).find('.close').data("tagtarget")).show();
+      });
+    });
+
+
+
+  });
+<% end %>

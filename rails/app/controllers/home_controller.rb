@@ -1,78 +1,64 @@
 class HomeController < ApplicationController
   before_action do
-    session[:zoom] = (session.try(:[], :zoom) || {}).with_indifferent_access
-    session[:data] = (session.try(:[], :data) || {}).with_indifferent_access
+    @user_holder = Interaction.new_place_holder_user(session_id: session.id)
+    @intention = Interaction.current_intention(user: @user_holder)
   end
 
   def index
-    session[:zoom] = {}
+    @intention.reset!
+    @intention.save!
   end
+
   def brief ; end
   def hello ; end
 
   def search
-    session[:zoom] = {}
     if params[:boton] == "searched"
-      data = session[:data] || {}
-      data[:category] = params[:category]
-      data[:industry] = params[:industry]
-      session[:data] = data
-      redirect_to :tags
-    end
-
-    
-  end
-
-  def tags
-    session[:zoom] = {}
-    if params[:boton] == "tags"
-      data = session[:data] || {}
-      #TODO store tags
+      @intention.reset!
+      @intention.data["category"] = params[:category]
+      @intention.data["industry"] = params[:industry]
+      @intention.save!      
       redirect_to :zoom
-    end
+    end    
   end
 
   def zoom
-    zoom = session[:zoom] || {}
     @images = []
-    
 
-    if params[:img_id].blank? && zoom[:counter].blank?
-      zoom[:counter] = 5
-      zoom[:radius] = 200
+    if params[:img_id].blank? && @intention.data["counter"].blank?
+      @intention.data["counter"] = 5
+      @intention.data["radius"] = 200
+
       @images = Backend.get_rand_images.each_slice(4)
-      zoom[:last_image] = @images.first.try(:first).try(:[], "filename")
-      zoom[:rand_img] = @images.to_a.flatten.map{|o| o.try(:[], "filename")}.sample(3)[0]
 
-      session[:zoom] = zoom
+      @intention.data["last_image"] = @images.first.try(:first).try(:[], "filename")
+      @intention.data["rand_img"] = @images.to_a.flatten.map{|o| o.try(:[], "filename")}.sample(3)[0]
     end
 
-    if params[:img_id].present? && zoom[:counter] >= 1
-      zoom[:last_image] = params[:last_image]
-      zoom[:last_image_prob] = params[:last_image_prob]
-      zoom[:last_image_id] = params[:img_id]
+    if params[:img_id].present? && @intention.data["counter"] >= 1
+      @intention.data["last_image"] = params[:last_image]
+      @intention.data["last_image_prob"] = params[:last_image_prob]
+      @intention.data["last_image_id"] = params[:img_id]
 
       @images = Backend.similar(id: params[:img_id],
-                                radius: zoom[:radius],
+                                radius: @intention.data["radius"],
                                 n: 10,
                                 init_radius: 200).each_slice(4)
 
-      zoom[:counter] -= 1
-      zoom[:radius] -= 27
-      session[:zoom] = zoom
+      @intention.data["counter"] -= 1
+      @intention.data["radius"] -= 27
     end
 
-    if zoom[:counter] == 0
-      data = session[:data] || {}
-      #TODO store image
+    @intention.save!
+
+    if @intention.data["counter"] == 0
       redirect_to :summary
     end
   end
 
   def summary
-    zoom = session[:zoom]
-    @image = Backend.similar(id: zoom[:last_image_id],
-                          radius: zoom[:radius],
+    @image = Backend.similar(id: @intention.data["last_image_id"],
+                          radius: @intention.data["radius"],
                           n: 10,
                           init_radius: 200).sample
   end
