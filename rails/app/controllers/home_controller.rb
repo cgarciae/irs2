@@ -64,5 +64,11 @@ class HomeController < ApplicationController
   end
 
   def designers
+    data_ = Backend.similar_designers(id: @intention.data["last_image_id"],
+                          radius: @intention.data["radius"],
+                          n: 10,
+                          init_radius: 200)
+
+    @designers = Interaction.map_designers(data_)
   end
 end

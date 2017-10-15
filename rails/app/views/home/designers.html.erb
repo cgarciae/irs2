@@ -29,46 +29,20 @@
 
 
   <ul class="collection">
-    <li class="collection-item avatar">
-      <%= image_tag("profile1.png", class: "circle") %>
-      <span class="title">Juan Martinez</span>
-        <br/>
-        <div class="percentageContainer" data-prob=88.3>
-          <span class="percentageValue"></span>
-          <span class="prob">88.3%</span>
-        </div>
+    <% @designers.each do |designer| %> 
 
-    </li>
-    <li class="collection-item avatar">
-      <%= image_tag("profile2.png", class: "circle") %>
-      <span class="title">Victor Proaño</span>
-        <br/>
-        <div class="percentageContainer" data-prob=85.79>
-          <span class="percentageValue"></span>
-          <span class="prob">85.79%</span>
-        </div>
+      <li class="collection-item avatar">
+        <%= image_tag("profile#{[1,2,3,4].sample}.png", class: "circle") %>
+        <span class="title"><%= designer.full_name %></span>
+          <br/>
+          <div class="percentageContainer" data-prob=<%= designer.data["similarity"] %>>
+            <span class="percentageValue"></span>
+            <span class="prob"><%= designer.data["similarity"] %></span>
+          </div>
 
-    </li>
-    <li class="collection-item avatar">
-      <%= image_tag("profile3.png", class: "circle") %>
-      <span class="title">Carlos Navas</span>
-      <br/>
-        <div class="percentageContainer" data-prob=79.8>
-          <span class="percentageValue"></span>
-          <span class="prob">79.8%</span>
-        </div>
+      </li>
 
-    </li>
-    <li class="collection-item avatar">
-      <%= image_tag("profile4.png", class: "circle") %>
-      <span class="title">Paul Pinto</span>
-      <br/>
-        <div class="percentageContainer" data-prob=65.8>
-          <span class="percentageValue"></span>
-          <span class="prob">65.8%</span>
-        </div>
-
-    </li>
+    <% end %>
   </ul>
            
 

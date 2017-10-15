@@ -1,5 +1,6 @@
 require 'faker'
 class Interaction
+  TOP_K_DESIGNERS = 3
 
   def self.new_place_holder_user(session_id:)
     begin
@@ -58,5 +59,22 @@ class Interaction
     end
 
     return intentions.last
+  end
+
+  def self.map_designers(data)
+    designers = data.map do |d|
+      begin
+        designer = User.find_by(session_id: d["filename"][0..9].to_s, user_type: User::DESIGNER_TYPE)
+        if designer.present?
+          designer.data["similarity"] = d.try(:[], "similarity").to_f.round(2)
+        end
+      rescue Mongoid::Errors::DocumentNotFound
+        designer = nil
+      end
+
+      designer
+    end
+
+    designers.compact.sample(TOP_K_DESIGNERS).sort_by{ |d| -d.data["similarity"] }
   end
 end

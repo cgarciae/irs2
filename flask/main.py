@@ -115,7 +115,7 @@ def get_similar(id):
 
 
 @app.route('/designers/<id>')
-def get_similar(id):
+def get_similar_designer(id):
     intial_radius = float(request.args.get('initial-radius', 100))
     radius = float(request.args.get('radius', 80))
     n = int(request.args.get('n', 10))
