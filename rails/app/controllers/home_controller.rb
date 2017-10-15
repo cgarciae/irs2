@@ -26,7 +26,7 @@ class HomeController < ApplicationController
     @images = []
 
     if params[:img_id].blank? && @intention.data["counter"].blank?
-      @intention.data["counter"] = 5
+      @intention.data["counter"] = Interaction::ZOOM_STEPS
       @intention.data["radius"] = 200
 
       @images = Backend.get_rand_images.each_slice(4)

@@ -1,6 +1,7 @@
 require 'faker'
 class Interaction
   TOP_K_DESIGNERS = 3
+  ZOOM_STEPS = 3
 
   def self.new_place_holder_user(session_id:)
     begin
