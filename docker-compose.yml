@@ -27,6 +27,8 @@ services:
       - ./rails:/code
       - ./data/images2440:/code/public/brandimages
     command: bash -c "bundle install && rails server -b 0.0.0.0"
+    depends_on:
+      - mongo
 
   flask:
     build: ./flask

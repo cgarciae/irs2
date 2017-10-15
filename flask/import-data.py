@@ -25,6 +25,7 @@ n_clusters = "7"
 @click.option('--folder', '-f', default = "./data/images2440")
 @click.option('--n-clusters', '-c', default = "10")
 @click.option('--host', '-h', default = "localhost")
+@click.option('--collection', '-h', default = "none")
 def main(size, folder, n_clusters, host):
     size = int(size)
     n_clusters = int(n_clusters)
@@ -82,10 +83,15 @@ def main(size, folder, n_clusters, host):
     client = MongoClient(host)
     db = client.brandon
 
-    db.images.drop()
+    if collection != "designers":
+        db.designers.drop()
+        print("Inserting Designers data")
+        odo(df, db.designers)
+    else:
+        db.images.drop()
 
-    print("Inserting data")
-    odo(df, db.images)
+        print("Inserting data")
+        odo(df, db.images)
 
 
 
